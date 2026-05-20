@@ -10,13 +10,14 @@ import snowflake.connector
 
 # Write directly to the app
 st.title(f":cup_with_straw: Customise your Smoothie: :cup_with_straw:")
+
+name_on_order = st.text_input("Name on Smoothie:")
+st.write(name_on_order)
+
 st.write(
     """Chose the fruits you want!
     """
 )
-
-name_on_order = st.text_input("Name on Smoothie:")
-st.write(name_on_order)
 
 # Method 1: Using st.connection (RECOMMENDED - simplest)
 # Make sure your secrets.toml has the [connections.snowflake] section
