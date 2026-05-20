@@ -4,6 +4,7 @@ from snowflake.snowpark import Session
 from snowflake.snowpark.functions import col
 from urllib import parse
 import snowflake.connector
+import requests  
 
 # URL-encode the password for the direct connection (if needed)
 # But better to use st.connection as shown below
@@ -69,17 +70,17 @@ ingredients_list = st.multiselect(
     , my_dataframe
     , max_selections=5
 )
-import requests  
-smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")  
-#st.text(smoothiefroot_response.json())
-sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
+
+
 if ingredients_list:
-    st.text(ingredients_list)
+    #st.text(ingredients_list)
+    ingredients_string = ''
 
-ingredients_string = ''
-
-for fruit_chosen in ingredients_list:
-    ingredients_string += fruit_chosen + ' '
+    for fruit_chosen in ingredients_list:
+        ingredients_string += fruit_chosen + ' '
+        smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")  
+        #st.text(smoothiefroot_response.json())
+        sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
 
 # Using parameterized query (SAFER - prevents SQL injection)
 my_insert_stmt = f""" insert into smoothies.public.orders(ingredients, name_on_order)
