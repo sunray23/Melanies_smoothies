@@ -1,3 +1,6 @@
+#secrets
+ secrets.toml
+
 # Compiled Lua sources
 luac.out
 
