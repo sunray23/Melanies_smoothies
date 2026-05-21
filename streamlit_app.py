@@ -60,7 +60,10 @@ except Exception as e:
 
 # Query the fruit options
 try:
-    my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'))
+    my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'),col('SEARCH_ON'))
+    st.dataframe(data=my_dataframe), use_container_width=True)
+    st.stop()
+
 except Exception as e:
     st.error(f"Error querying fruit options: {e}")
     st.stop()
